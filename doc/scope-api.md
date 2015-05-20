@@ -8,28 +8,28 @@
   callService, and lifecycle methods that can be used to get
   service instances that are scoped to the object, live and die
   with it.
-* **[construct(scope, ServiceClass, options)](#construct) &implies; `object`**
+* **[construct(scope, ServiceClass, options)](#construct) => `object`**
   Constructs an instance of the class passed in.
   If the class is static, the same object is always returned.
   Otherwise, a new instance is created on each call.
   Don't call this directly, it should only be internally used by
   scope methods.
-* **[getSingleton(scope, service, index, options)](#getSingleton) &implies; `object`**
+* **[getSingleton(scope, service, index, options)](#getSingleton) => `object`**
   Gets the instance for a singleton service.
   This should not be called, except by scope methods.
 * **[initializeService(scope, ServiceClass)](#initializeService)**
   Initializes a service by calling its init method, and wiring up
   its static events.
-* **[scope$initialize()](#scope$initialize) &implies; `object`**
+* **[scope$initialize()](#scope$initialize) => `object`**
   Initialize services for this scope. This is called automatically
   if the scope was built with a set of services.
   Otherwise, it must be called manually.
-* **[scope$register(name, ServiceClass)](#scope$register) &implies; `object`**
+* **[scope$register(name, ServiceClass)](#scope$register) => `object`**
   Registers a service into the scope's registry, making it available
   for require and getServices.
   This will initialize the service if the scope is already
   initialized.
-* **[scope$require(service, options)](#scope$require) &implies; `object`**
+* **[scope$require(service, options)](#scope$require) => `object`**
   Returns an instance of a service implementing the named contract
   passed as a parameter.
   If more than one service exists for that contract, one instance
@@ -39,24 +39,24 @@
   the case among the ones that have the most dependencies.
   A new instance is returned every time the function is called,
   unless the service is static, or if it is a scope singleton.
-* **[scope$getServices(service, options)](#scope$getServices) &implies; `Array`**
+* **[scope$getServices(service, options)](#scope$getServices) => `Array`**
   Returns a list of service instances that are implementing the
   named contract passed as a parameter.
   The services are returned in order of dependency: if service A has
   a dependency on service B, B is guaranteed to appear earlier in
   the list.
   New instances are returned every time the function is called.
-* **[scope$callService(service, method, options, done)](#scope$callService) &implies; `object`**
+* **[scope$callService(service, method, options, done)](#scope$callService) => `object`**
   Calls a method on each registered service of the specified name,
   asynchronously.
-* **[scope$lifecycle(service, method)](#scope$lifecycle) &implies; `function`**
+* **[scope$lifecycle(service, method)](#scope$lifecycle) => `function`**
   Creates a lifecycle function that calls into all the service
   methods specified in an alternated list of service names, and
   method names as parameters.
   It is possible to replace service/method pairs with a function
   (options, done) that will be called as part of the lifecycle
   execution.
-* **[scope$makeSubScope(name, subScope)](#scope$makeSubScope) &implies; `object`**
+* **[scope$makeSubScope(name, subScope)](#scope$makeSubScope) => `object`**
   Transforms an object into a sub-scope of this scope.
 
 <a name=\"scope\"></a>
@@ -76,7 +76,7 @@ instances that are scoped to the object, live and die with it.
 | [parentScope] | `object` | An optional parent scope that may have valid instances of services to hand down. |
 
 <a name=\"construct\"></a>
-## construct(scope, ServiceClass, options) &implies; `object`
+## construct(scope, ServiceClass, options) => `object`
 
 Constructs an instance of the class passed in.
 If the class is static, the same object is always returned.
@@ -94,7 +94,7 @@ wasn't found.
 | options      | `object`   | Options to pass into the service's constructor. |
 
 <a name=\"getSingleton\"></a>
-## getSingleton(scope, service, index, options) &implies; `object`
+## getSingleton(scope, service, index, options) => `object`
 
 Gets the instance for a singleton service.
 This should not be called, except by scope methods.
@@ -120,7 +120,7 @@ its static events.
 | ServiceClass | `function` | The service class to initialize.     |
 
 <a name=\"scope$initialize\"></a>
-## scope$initialize() &implies; `object`
+## scope$initialize() => `object`
 
 Initialize services for this scope. This is called automatically if
 the scope was built with a set of services. Otherwise, it must be
@@ -129,7 +129,7 @@ called manually.
 **Returns**: `object` - The scope.  
 
 <a name=\"scope$register\"></a>
-## scope$register(name, ServiceClass) &implies; `object`
+## scope$register(name, ServiceClass) => `object`
 
 Registers a service into the scope's registry, making it available
 for require and getServices. This will initialize the service if the
@@ -143,7 +143,7 @@ scope is already initialized.
 | ServiceClass | `function` | The service constructor, or the static service object to register. |
 
 <a name=\"scope$require\"></a>
-## scope$require(service, options) &implies; `object`
+## scope$require(service, options) => `object`
 
 Returns an instance of a service implementing the named contract
 passed as a parameter.
@@ -163,7 +163,7 @@ wasn't found.
 | options | `object` | Options to pass into the service's constructor |
 
 <a name=\"scope$getServices\"></a>
-## scope$getServices(service, options) &implies; `Array`
+## scope$getServices(service, options) => `Array`
 
 Returns a list of service instances that are implementing the named
 contract passed as a parameter.
@@ -180,7 +180,7 @@ New instances are returned every time the function is called.
 | options | `object` | Options to pass into the services' constructors. |
 
 <a name=\"scope$callService\"></a>
-## scope$callService(service, method, options, done) &implies; `object`
+## scope$callService(service, method, options, done) => `object`
 
 Calls a method on each registered service of the specified name,
 asynchronously.
@@ -195,7 +195,7 @@ asynchronously.
 | done    | `function` | The function to call when all service methods have returned. |
 
 <a name=\"scope$lifecycle\"></a>
-## scope$lifecycle(service, method) &implies; `function`
+## scope$lifecycle(service, method) => `function`
 
 Creates a lifecycle function that calls into all the service methods
 specified in an alternated list of service names, and method names
@@ -228,7 +228,7 @@ and a callback as a parameter.
 | method  | `string` | The method name.  |
 
 <a name=\"scope$makeSubScope\"></a>
-## scope$makeSubScope(name, subScope) &implies; `object`
+## scope$makeSubScope(name, subScope) => `object`
 
 Transforms an object into a sub-scope of this scope.
 
