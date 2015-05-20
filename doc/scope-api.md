@@ -1,4 +1,5 @@
-## Globals
+Scope API Reference Documentation
+---------------------------------
 
 * **[mixin:scope](#scope)**
   Transforms an object into a scope.
