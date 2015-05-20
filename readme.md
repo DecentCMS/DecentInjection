@@ -335,7 +335,7 @@ Service configuration
 Service configuration is also not a responsibility of the scope.
 
 A reference implementation of scopes loading themselves and exposing
-configuration to its services can be found in DecentCMS, under
+configuration to their services can be found in DecentCMS, under
 `modules/core/multi-tenancy/lib/shell/js`.
 
 Testing services
@@ -379,7 +379,8 @@ If the tested service is using constructor injection, testing gets
 even easier, and you may not even need a scope, fake or otherwise:
 
 ```js
-var objectBeingTested = new ObjectBeingTested(new MockServiceA(), new MockServiceB());
+var objectBeingTested =
+  new ObjectBeingTested(new MockServiceA(), new MockServiceB());
 ```
 
 Failing gracefully
