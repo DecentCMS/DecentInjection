@@ -8,18 +8,6 @@
   callService, and lifecycle methods that can be used to get
   service instances that are scoped to the object, live and die
   with it.
-* **[construct(scope, ServiceClass, options)](#construct) => `object`**
-  Constructs an instance of the class passed in.
-  If the class is static, the same object is always returned.
-  Otherwise, a new instance is created on each call.
-  Don't call this directly, it should only be internally used by
-  scope methods.
-* **[getSingleton(scope, service, index, options)](#getSingleton) => `object`**
-  Gets the instance for a singleton service.
-  This should not be called, except by scope methods.
-* **[initializeService(scope, ServiceClass)](#initializeService)**
-  Initializes a service by calling its init method, and wiring up
-  its static events.
 * **[scope$initialize()](#scope$initialize) => `object`**
   Initialize services for this scope. This is called automatically
   if the scope was built with a set of services.
@@ -58,6 +46,18 @@
   execution.
 * **[scope$makeSubScope(name, subScope)](#scope$makeSubScope) => `object`**
   Transforms an object into a sub-scope of this scope.
+* **[construct(scope, ServiceClass, options)](#construct) => `object`**
+  Constructs an instance of the class passed in.
+  If the class is static, the same object is always returned.
+  Otherwise, a new instance is created on each call.
+  Don't call this directly, it should only be internally used by
+  scope methods.
+* **[getSingleton(scope, service, index, options)](#getSingleton) => `object`**
+  Gets the instance for a singleton service.
+  This should not be called, except by scope methods.
+* **[initializeService(scope, ServiceClass)](#initializeService)**
+  Initializes a service by calling its init method, and wiring up
+  its static events.
 
 <a name="scope"></a>
 ## mixin: scope
@@ -74,50 +74,6 @@ instances that are scoped to the object, live and die with it.
 | objectToScope | `object` | The object that must be made a scope. |
 | services      | `object` | A map of the services to be made available from require. |
 | [parentScope] | `object` | An optional parent scope that may have valid instances of services to hand down. |
-
-<a name="construct"></a>
-## construct(scope, ServiceClass, options) => `object`
-
-Constructs an instance of the class passed in.
-If the class is static, the same object is always returned.
-Otherwise, a new instance is created on each call.
-Don't call this directly, it should only be internally used by scope
-methods.
-
-**Returns**: `object` - An instance of the service, or null if it
-wasn't found.  
-
-| Param        | Type       | Description                          |
-| ------------ | ---------- | ------------------------------------ |
-| scope        | `object`   | The scope.                           |
-| ServiceClass | `function` | The class to instantiate. This constructor must always take a scope as its first argument. It can also take an optional 'options' argument, unless it's a shell singleton. |
-| options      | `object`   | Options to pass into the service's constructor. |
-
-<a name="getSingleton"></a>
-## getSingleton(scope, service, index, options) => `object`
-
-Gets the instance for a singleton service.
-This should not be called, except by scope methods.
-
-**Returns**: `object` - The singleton instance.  
-
-| Param   | Type     | Description                                 |
-| ------- | -------- | ------------------------------------------- |
-| scope   | `object` | The scoped object.                          |
-| service | `string` | The service name.                           |
-| index   | `number` | The index at which the service is to be cached. |
-| options | `object` | The options to pass into the service constructor. |
-
-<a name="initializeService"></a>
-## initializeService(scope, ServiceClass)
-
-Initializes a service by calling its init method, and wiring up
-its static events.
-
-| Param        | Type       | Description                          |
-| ------------ | ---------- | ------------------------------------ |
-| scope        | `object`   | The scope.                           |
-| ServiceClass | `function` | The service class to initialize.     |
 
 <a name="scope$initialize"></a>
 ## scope$initialize() => `object`
@@ -239,3 +195,46 @@ Transforms an object into a sub-scope of this scope.
 | name     | `string` | The name of the scope.                |
 | subScope | `object` | The object that must be made a scope. |
 
+<a name="construct"></a>
+## construct(scope, ServiceClass, options) => `object`
+
+Constructs an instance of the class passed in.
+If the class is static, the same object is always returned.
+Otherwise, a new instance is created on each call.
+Don't call this directly, it should only be internally used by scope
+methods.
+
+**Returns**: `object` - An instance of the service, or null if it
+wasn't found.  
+
+| Param        | Type       | Description                          |
+| ------------ | ---------- | ------------------------------------ |
+| scope        | `object`   | The scope.                           |
+| ServiceClass | `function` | The class to instantiate. This constructor must always take a scope as its first argument. It can also take an optional 'options' argument, unless it's a shell singleton. |
+| options      | `object`   | Options to pass into the service's constructor. |
+
+<a name="getSingleton"></a>
+## getSingleton(scope, service, index, options) => `object`
+
+Gets the instance for a singleton service.
+This should not be called, except by scope methods.
+
+**Returns**: `object` - The singleton instance.  
+
+| Param   | Type     | Description                                 |
+| ------- | -------- | ------------------------------------------- |
+| scope   | `object` | The scoped object.                          |
+| service | `string` | The service name.                           |
+| index   | `number` | The index at which the service is to be cached. |
+| options | `object` | The options to pass into the service constructor. |
+
+<a name="initializeService"></a>
+## initializeService(scope, ServiceClass)
+
+Initializes a service by calling its init method, and wiring up
+its static events.
+
+| Param        | Type       | Description                          |
+| ------------ | ---------- | ------------------------------------ |
+| scope        | `object`   | The scope.                           |
+| ServiceClass | `function` | The service class to initialize.     |
