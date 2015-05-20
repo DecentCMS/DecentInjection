@@ -6,6 +6,9 @@ It has no external runtime dependency.
 Getting started
 ---------------
 
+Full documentation for the Scope API can be found under:
+[doc/scope-api.md](doc/scope-api.md)
+
 ### Installing the package
 
 To install the package, do a `npm install decent-injection --save`.
