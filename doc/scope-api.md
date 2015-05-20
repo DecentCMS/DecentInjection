@@ -59,7 +59,7 @@
 * **[scope$makeSubScope(name, subScope)](#scope$makeSubScope) => `object`**
   Transforms an object into a sub-scope of this scope.
 
-<a name=\"scope\"></a>
+<a name="scope"></a>
 ## mixin: scope
 
 Transforms an object into a scope.
@@ -75,7 +75,7 @@ instances that are scoped to the object, live and die with it.
 | services      | `object` | A map of the services to be made available from require. |
 | [parentScope] | `object` | An optional parent scope that may have valid instances of services to hand down. |
 
-<a name=\"construct\"></a>
+<a name="construct"></a>
 ## construct(scope, ServiceClass, options) => `object`
 
 Constructs an instance of the class passed in.
@@ -93,7 +93,7 @@ wasn't found.
 | ServiceClass | `function` | The class to instantiate. This constructor must always take a scope as its first argument. It can also take an optional 'options' argument, unless it's a shell singleton. |
 | options      | `object`   | Options to pass into the service's constructor. |
 
-<a name=\"getSingleton\"></a>
+<a name="getSingleton"></a>
 ## getSingleton(scope, service, index, options) => `object`
 
 Gets the instance for a singleton service.
@@ -108,7 +108,7 @@ This should not be called, except by scope methods.
 | index   | `number` | The index at which the service is to be cached. |
 | options | `object` | The options to pass into the service constructor. |
 
-<a name=\"initializeService\"></a>
+<a name="initializeService"></a>
 ## initializeService(scope, ServiceClass)
 
 Initializes a service by calling its init method, and wiring up
@@ -119,7 +119,7 @@ its static events.
 | scope        | `object`   | The scope.                           |
 | ServiceClass | `function` | The service class to initialize.     |
 
-<a name=\"scope$initialize\"></a>
+<a name="scope$initialize"></a>
 ## scope$initialize() => `object`
 
 Initialize services for this scope. This is called automatically if
@@ -128,7 +128,7 @@ called manually.
 
 **Returns**: `object` - The scope.  
 
-<a name=\"scope$register\"></a>
+<a name="scope$register"></a>
 ## scope$register(name, ServiceClass) => `object`
 
 Registers a service into the scope's registry, making it available
@@ -142,7 +142,7 @@ scope is already initialized.
 | name         | `string`   | The service name implemented by ServiceClass. |
 | ServiceClass | `function` | The service constructor, or the static service object to register. |
 
-<a name=\"scope$require\"></a>
+<a name="scope$require"></a>
 ## scope$require(service, options) => `object`
 
 Returns an instance of a service implementing the named contract
@@ -162,7 +162,7 @@ wasn't found.
 | service | `String` | The name of the contract for which a service instance is required. |
 | options | `object` | Options to pass into the service's constructor |
 
-<a name=\"scope$getServices\"></a>
+<a name="scope$getServices"></a>
 ## scope$getServices(service, options) => `Array`
 
 Returns a list of service instances that are implementing the named
@@ -179,7 +179,7 @@ New instances are returned every time the function is called.
 | service | `String` | The name of the contract for which service instances are required. |
 | options | `object` | Options to pass into the services' constructors. |
 
-<a name=\"scope$callService\"></a>
+<a name="scope$callService"></a>
 ## scope$callService(service, method, options, done) => `object`
 
 Calls a method on each registered service of the specified name,
@@ -194,7 +194,7 @@ asynchronously.
 | options | `object`   | The parameter to pass to the method.      |
 | done    | `function` | The function to call when all service methods have returned. |
 
-<a name=\"scope$lifecycle\"></a>
+<a name="scope$lifecycle"></a>
 ## scope$lifecycle(service, method) => `function`
 
 Creates a lifecycle function that calls into all the service methods
@@ -227,7 +227,7 @@ and a callback as a parameter.
 | service | `string` | The service name. |
 | method  | `string` | The method name.  |
 
-<a name=\"scope$makeSubScope\"></a>
+<a name="scope$makeSubScope"></a>
 ## scope$makeSubScope(name, subScope) => `object`
 
 Transforms an object into a sub-scope of this scope.
