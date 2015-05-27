@@ -27,6 +27,7 @@ describe('scope', function() {
 
   it('retrieves service instances', function() {
     function ServiceClass() {}
+    ServiceClass.transient = true;
     var scoped = scope('', {}, {
       service: [ServiceClass]
     });
@@ -39,6 +40,7 @@ describe('scope', function() {
 
   it('retrieves a different instance every time require is called', function() {
     function ServiceClass() {}
+    ServiceClass.transient = true;
     var scoped = scope('', {}, {
       service: [ServiceClass]
     });
@@ -56,7 +58,6 @@ describe('scope', function() {
 
   it('retrieves the same singleton instance every time require is called', function() {
     function ServiceClass() {}
-    ServiceClass.isScopeSingleton = true;
     ServiceClass.scope = '';
     var scoped = scope('', {}, {
       service: [ServiceClass]
@@ -72,7 +73,6 @@ describe('scope', function() {
 
   it('retrieves different singleton instances from different scopes', function() {
     function ServiceClass() {}
-    ServiceClass.isScopeSingleton = true;
     ServiceClass.scope = '';
     var scoped1 = scope('', {}, {
       service: [ServiceClass]
@@ -90,7 +90,9 @@ describe('scope', function() {
 
   it('returns the last service from require', function() {
     function ServiceClass1() {}
+    ServiceClass1.transient = true;
     function ServiceClass2() {}
+    ServiceClass2.transient = true;
     var scoped = scope('', {}, {
       service: [ServiceClass1, ServiceClass2]
     });
@@ -103,7 +105,9 @@ describe('scope', function() {
 
   it('returns all services from getServices', function() {
     function ServiceClass1() {}
+    ServiceClass1.transient = true;
     function ServiceClass2() {}
+    ServiceClass2.transient = true;
     var scoped = scope('', {}, {
       service: [ServiceClass1, ServiceClass2]
     });
@@ -119,7 +123,9 @@ describe('scope', function() {
 
   it('returns new instances of services every time from getServices', function() {
     function ServiceClass1() {}
+    ServiceClass1.transient = true;
     function ServiceClass2() {}
+    ServiceClass2.transient = true;
     var scoped = scope('', {}, {
       service: [ServiceClass1, ServiceClass2]
     });
@@ -135,10 +141,8 @@ describe('scope', function() {
 
   it('returns the same instances of singleton services every time from getServices', function() {
     function ServiceClass1() {}
-    ServiceClass1.isScopeSingleton = true;
     ServiceClass1.scope = '';
     function ServiceClass2() {}
-    ServiceClass2.isScopeSingleton = true;
     ServiceClass2.scope = '';
     var scoped = scope('', {}, {
       service: [ServiceClass1, ServiceClass2]
@@ -159,7 +163,6 @@ describe('scope', function() {
     function ServiceClass(scope) {
       this.scope = scope;
     }
-    ServiceClass.isScopeSingleton = true;
     ServiceClass.scope = 'outer';
     var initializedToScope = null;
     ServiceClass.init = function(scope) {
@@ -202,11 +205,12 @@ describe('scope', function() {
       this.scope = scope;
       this.options = options;
     }
+    ServiceClass.transient = true;
+
     function SingletonClass(scope, options) {
       this.scope = scope;
       this.options = options;
     }
-    SingletonClass.isScopeSingleton = true;
     SingletonClass.scope = '';
     var scoped = scope('', {}, {
       service: [ServiceClass],
@@ -238,15 +242,17 @@ describe('scope', function() {
       this.options = options;
     }
     ServiceClass.inject = ['singleton', 'other-service', 'the-scope'];
+    ServiceClass.scope = 'the-scope';
+    ServiceClass.transient = true;
 
     function SingletonClass(scope, options) {
       this.scope = scope;
       this.options = options;
     }
-    SingletonClass.isScopeSingleton = true;
     SingletonClass.scope = 'the-scope';
 
     function OtherService() {}
+    OtherService.transient = true;
 
     var scoped = scope('the-scope', {}, {
       service: [ServiceClass],
@@ -279,10 +285,10 @@ describe('scope', function() {
       this.scope = scope;
       this.options = options;
     }
-    SingletonClass.isScopeSingleton = true;
     SingletonClass.scope = 'the-scope';
 
     function OtherService() {}
+    OtherService.transient = true;
 
     var scoped = scope('the-scope', {}, {
       service: [service],
@@ -302,6 +308,7 @@ describe('scope', function() {
   it('registers services', function() {
     var scoped = scope('', {}, {});
     function ServiceClass() {}
+    ServiceClass.transient = true;
     scoped.register('service-class', ServiceClass);
     var instance = scoped.require('service-class');
 
@@ -348,6 +355,7 @@ describe('scope', function() {
       results.push(context.one);
       next();
     };
+    ServiceClass.transient = true;
     function ServiceWithoutMethod(scope) {
       this.scope = scope;
     }
@@ -359,7 +367,6 @@ describe('scope', function() {
       results.push(context.two);
       next();
     };
-    SingletonClass.isScopeSingleton = true;
     SingletonClass.scope = '';
     var scoped = scope('', {}, {
       service: [ServiceClass, ServiceWithoutMethod, SingletonClass]
@@ -381,6 +388,8 @@ describe('scope', function() {
       results.push(context.one);
       next();
     };
+    ServiceClass.transient = true;
+
     function SingletonClass(scope) {
       this.scope = scope;
     }
@@ -389,7 +398,6 @@ describe('scope', function() {
       results.push(context.two);
       next();
     };
-    SingletonClass.isScopeSingleton = true;
     SingletonClass.scope = '';
     var scoped = scope('', {}, {
       service: [ServiceClass, SingletonClass]

@@ -71,16 +71,27 @@ bound:
 MyService.scope = 'request';
 ```
 
-Services can also declare that they should be "scope singletons",
-which means that there should be only one instance of them for their
-scope.
-If a service is not declared as a scope singleton, it is transient:
-its scope will still be what it asked for in its declaration, but it
-will be instantiated anew every time it is required.
+Services can also declare that they should be transient, which means
+that a new instance is returned every time the service is required.
+Its scope is still what it points to with its `scope` definition,
+but that doesn't define its lifetime, only how services will be
+resolved.
 
 ```js
-MyService.isScopeSingleton = true;
+MyService.transient = true;
 ```
+
+If a service is not declared as transient, it is a scope singleton:
+* Requiring a scope singleton from a given scope will always return
+  the same object.
+* When the scope is disposed of, its scope singletons die with it.
+* If two distinct scope objects with the same scope name get a
+  require for a service that is defined for that scope name, two
+  different instances will be returned.
+* If two scopes with the same name live under the same parent scope,
+  and the same service name is required from them, and the service
+  is scoped at the parent level, then the same instance is returned
+  from both child scopes.
 
 #### Static services
 
