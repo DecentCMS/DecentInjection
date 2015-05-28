@@ -1,7 +1,7 @@
 {
   "name": "decent-injection",
   "friendlyName": "Decent Injection",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Dependency injection library built for, used, and battle-tested by DecentCMS. It features scope management, constructor injection, property injection, and service locator. It has no runtime dependency.",
   "keywords": ["dependency injection", "service locator", "scope", "inversion of control"],
   "homepage": "https://github.com/DecentCMS/DecentInjection",

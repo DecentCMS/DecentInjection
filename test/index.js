@@ -378,6 +378,14 @@ describe('scope', function() {
     });
   });
 
+  it('passes on non-existing services', function(done) {
+    var scoped = scope('', {}, {});
+
+    scoped.callService('service', 'method', {one: 'one', two: 'two'}, function() {
+      done();
+    });
+  });
+
   it('runs life cycles', function(done) {
     var results = [];
     function ServiceClass(scope) {
@@ -418,6 +426,17 @@ describe('scope', function() {
         'anonymous', 'three',
         'service', 'one', 'singleton', 'two'
       ]);
+      done();
+    });
+  });
+
+  it("passes on life cycles services that don't exist", function(done) {
+    var scoped = scope('', {}, {});
+
+    var lifecycle = scoped.lifecycle(
+      'service', 'method'
+    );
+    lifecycle({one: 'one', two: 'two', three: 'three'}, function() {
       done();
     });
   });
